@@ -384,6 +384,16 @@ Run both apps using docker-compose.
 Go to the sign up page and enter your sign up information. This only creates an account locally for now. On the confirm page use the previously entered email and `1234` as the confirm code. 
 
 ## Setting up DynamoDB and Postgres
+To automatically install postgres in gitpod, add this to your `.gitpod.yml` file. You can also run these commands separately in the terminal
+
+```yaml
+- name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+      sudo apt update
+      sudo apt install -y postgresql-client-13 libpq-dev
+```
 
 Add the following to the `docker-compose.yml` file
 
@@ -420,7 +430,20 @@ volumes:
     driver: local
 ```
 
+
+
 Run docker compose
 ```sh
 docker-compose up
 ```
+
+Check postgres is running locally using the following command in the terminal
+
+```sh
+psql --host localhost
+```
+
+You can run the commands in this repo to test dynamodb locally
+
+https://github.com/100DaysOfCloud/challenge-dynamodb-local
+
