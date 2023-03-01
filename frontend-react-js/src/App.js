@@ -5,6 +5,7 @@ import UserFeedPage from './pages/UserFeedPage';
 import SignupPage from './pages/SignupPage';
 import SigninPage from './pages/SigninPage';
 import RecoverPage from './pages/RecoverPage';
+import NotificationsFeedPage from './pages/NotificationsFeedPage';
 import MessageGroupsPage from './pages/MessageGroupsPage';
 import MessageGroupPage from './pages/MessageGroupPage';
 import ConfirmationPage from './pages/ConfirmationPage';
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/confirm",
     element: <ConfirmationPage />
+  },
+  {
+    path: "/notifications",
+    element: <NotificationsFeedPage />
   },
   {
     path: "/forgot",
