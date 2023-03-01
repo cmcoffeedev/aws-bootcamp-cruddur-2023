@@ -382,3 +382,45 @@ article {
 Run both apps using docker-compose.
 
 Go to the sign up page and enter your sign up information. This only creates an account locally for now. On the confirm page use the previously entered email and `1234` as the confirm code. 
+
+## Setting up DynamoDB and Postgres
+
+Add the following to the `docker-compose.yml` file
+
+```yaml
+db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+dynamodb-local:
+    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+    # We needed to add user:root to get this working.
+    user: root
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+```
+
+Also add volumes at the bottom of `docker-compose.yml`
+
+```yaml
+volumes:
+  db:
+    driver: local
+```
+
+Run docker compose
+```sh
+docker-compose up
+```
