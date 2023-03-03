@@ -96,6 +96,15 @@ You can get the URL for the frontend from the ports tab.
 The frontend should look like this
 ![image](../_docs/assets/frontend-example.png)
 
+Also, add this task to your `.gitpod.yml` file under the `aws-cli` task
+
+```yaml
+ - name: react-js
+    command: |
+      cd frontend-react-js
+      npm i
+```
+
 ## Containerize the frontend
 Create a file in frontend-react-js called Dockerfile with the following contents
 
